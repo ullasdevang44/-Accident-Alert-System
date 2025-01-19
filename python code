@@ -1,0 +1,49 @@
+import cv2
+
+# Load the Haar Cascade for license plate detection
+harcascade_path = "haarcascade_russian_plate_number.xml"  # Ensure this file is in the same folder
+plate_cascade = cv2.CascadeClassifier(harcascade_path)
+
+# Initialize the camera
+cap = cv2.VideoCapture(0)  # Use 0 for a webcam or replace with video file path
+cap.set(3, 640)  # Width
+cap.set(4, 480)  # Height
+
+# Parameters for detection
+min_area = 500  # Minimum area of a detected object
+count = 0
+
+print("Press 's' to save detected plates.")
+
+while True:
+    success, img = cap.read()
+    if not success:
+        break
+
+    # Convert to grayscale for processing
+    img_gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+
+    # Detect plates
+    plates = plate_cascade.detectMultiScale(img_gray, 1.1, 4)
+    for (x, y, w, h) in plates:
+        area = w * h
+        if area > min_area:
+            cv2.rectangle(img, (x, y), (x + w, y + h), (0, 255, 0), 2)
+            cv2.putText(img, "Number Plate", (x, y - 5), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 255), 2)
+            img_roi = img[y:y + h, x:x + w]
+            cv2.imshow("ROI", img_roi)
+
+            # Save the image when 's' is pressed
+            if cv2.waitKey(1) & 0xFF == ord('s'):
+                cv2.imwrite(f"plates/scanned_plate_{count}.jpg", img_roi)
+                print(f"Plate saved: scanned_plate_{count}.jpg")
+                count += 1
+
+    # Show the main window
+    cv2.imshow("Result", img)
+
+    if cv2.waitKey(1) & 0xFF == ord('q'):  # Exit on 'q'
+        break
+
+cap.release()
+cv2.destroyAllWindows()

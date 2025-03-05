@@ -1,0 +1,124 @@
+# Real-Time Accident Alert and Rash Driving Detection System
+
+## **Step 1: Gather the Required Components**
+
+### **Hardware Components**
+1. **Arduino Uno** (or compatible board)
+2. **GPS Module** (e.g., NEO-6M)
+3. **GSM Module** (e.g., SIM800L or SIM900A)
+4. **Vibration Sensor** (e.g., SW-420)
+5. **Power Supply** (e.g., 9V battery or USB)
+6. **Connecting Wires**
+7. **Breadboard**
+
+### **Software**
+1. **Arduino IDE** (for microcontroller programming)
+2. **Python** (for rash driving detection)
+3. **OpenCV** (Python library for computer vision)
+4. **Dependencies:**
+   - `TinyGPS++` (Arduino library for GPS)
+   - `SoftwareSerial` (Arduino library for communication)
+   - Haar cascades for Python-based license plate detection.
+
+---
+
+## **Step 2: Hardware Connections**
+
+### **1. Connect the GPS Module**
+| **GPS Module Pin** | **Arduino Pin** |
+|---------------------|-----------------|
+| VCC                 | 5V             |
+| GND                 | GND            |
+| TX                  | RX (Pin 4)     |
+| RX                  | TX (Pin 3)     |
+
+### **2. Connect the GSM Module**
+| **GSM Module Pin**  | **Arduino Pin** |
+|---------------------|-----------------|
+| VCC                 | 5V             |
+| GND                 | GND            |
+| TX                  | RX (Pin 10)    |
+| RX                  | TX (Pin 11)    |
+
+### **3. Connect the Vibration Sensor**
+| **Vibration Sensor Pin** | **Arduino Pin** |
+|--------------------------|-----------------|
+| VCC                      | 5V             |
+| GND                      | GND            |
+| OUT                      | D7             |
+
+### **4. Circuit Overview**
+- Power the modules via Arduino’s 5V and GND pins.
+- Connect all the modules to appropriate pins based on the pin layout above.
+
+---
+
+## **Step 3: Install Software**
+
+### **1. Install Arduino IDE**
+- Download from the [Arduino IDE official website](https://www.arduino.cc/en/software).
+- Install required libraries:
+  1. Open Arduino IDE.
+  2. Go to **Tools > Manage Libraries**.
+  3. Search for and install:
+     - `TinyGPS++`
+     - `SoftwareSerial`
+
+### **2. Install Python and OpenCV**
+1. Download Python from [python.org](https://www.python.org/).
+2. Install required Python libraries using pip:
+   ```bash
+   pip install opencv-python
+   ```
+3. Download the Haar Cascade XML file for license plate detection from [Haarcascades GitHub Repository](https://github.com/opencv/opencv/tree/master/data/haarcascades).
+
+---
+
+## **Step 4: Arduino Code Implementation**
+
+1. Open the Arduino IDE.
+2. Copy and paste the provided Arduino Code.
+3. Replace the placeholder `+1234567890` with the phone number where you want to send SMS alerts.
+4. Connect the Arduino board to your PC via USB.
+5. Select the correct board and port in **Tools > Board** and **Tools > Port**.
+6. Click **Upload** to load the code onto the Arduino.
+
+---
+
+## **Step 5: Python Code Implementation**
+
+1. Open your preferred text editor or IDE (e.g., **VS Code**, **PyCharm**).
+2. Create a new Python script file, e.g., `rash_driving.py`.
+3. Copy the provided Python Code into the file.
+4. Save the Haar cascade XML file (for license plate detection) in the same directory as the script.
+5. Run the Python script:
+   ```bash
+   python rash_driving.py
+   ```
+
+---
+
+## **Step 6: Testing the System**
+
+### **Testing the Accident Detection**
+1. Simulate a vibration or shock by tapping the vibration sensor.
+2. Check the Arduino Serial Monitor (in the Arduino IDE). It should:
+   - Detect the accident.
+   - Send GPS coordinates via SMS to the predefined number.
+
+### **Testing Rash Driving Detection**
+1. Run the Python script.
+2. Place a video or camera feed showing vehicles in front of the system.
+3. Check if the system detects license plates and highlights them with a bounding box.
+
+---
+
+## **Step 7: Final Integration**
+
+1. Combine both Python and Arduino systems into one prototype.
+2. Ensure that:
+   - The **Arduino** sends GPS location and accident alerts via GSM.
+   - The **Python script** monitors rash driving in real-time using OpenCV.
+
+---
+

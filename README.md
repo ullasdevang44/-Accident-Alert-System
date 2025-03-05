@@ -11,7 +11,7 @@ The **Accident Alert System** is a real-time safety solution designed to detect 
 3. **Rash Driving Detection:** Identifies reckless driving patterns using Python and OpenCV.
 4. **Real-Time Monitoring:** Provides continuous updates to authorities for efficient intervention.
 
----
+--- 
 
 ## Components
 ### Hardware
